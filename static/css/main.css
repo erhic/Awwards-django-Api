@@ -714,7 +714,146 @@ a[href*="#followme"]::before {
     text-transform: uppercase;
 }
 
-#register {
-    /* margin-left: -0px;
-    margin-right: 0px; */
+#landingpg {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.circle-wrap {
+    margin: 150px auto;
+    width: 150px;
+    height: 150px;
+    background: #fefcff;
+    border-radius: 50%;
+    border: 1px solid #cdcbd0;
+}
+
+.circle-wrap .circle .mask,
+.circle-wrap .circle .fill {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.mask .fill {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #227ded;
+}
+
+#maskfull1 {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #ed2233 !important;
+}
+
+#maskfull2 {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #e7d216 !important;
+}
+
+#maskfull3 {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #076b5a !important;
+}
+
+#maskfull4 {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #49c5b6 !important;
+}
+
+#maskfull5 {
+    clip: rect(0px, 75px, 150px, 0px);
+    background-color: #1ec555 !important;
+}
+
+.circle-wrap .circle .mask {
+    clip: rect(0px, 150px, 150px, 75px);
+}
+
+.mask.full,
+.circle .fill {
+    animation: fill ease-in-out 3s;
+    transform: rotate(135deg);
+}
+
+@keyframes fill {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(135deg);
+    }
+}
+
+.circle-wrap .inside-circle {
+    width: 122px;
+    height: 122px;
+    border-radius: 50%;
+    background: #d2eaf1;
+    line-height: 120px;
+    text-align: center;
+    margin-top: 14px;
+    margin-left: 14px;
+    color: #1e51dc;
+    position: absolute;
+    z-index: 100;
+    font-weight: 700;
+    font-size: 2em;
+}
+
+@keyframes growProgressBar {
+    0%,
+    33% {
+        --pgPercentage: 0;
+    }
+    100% {
+        --pgPercentage: var(--value);
+    }
+}
+
+@property --pgPercentage {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+}
+
+div[role="progressbar"] {
+    --size: 12rem;
+    --fg: #369;
+    --bg: #def;
+    --pgPercentage: var(--value);
+    animation: growProgressBar 3s 1 forwards;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0), conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: calc(var(--size) / 5);
+    color: var(--fg);
+}
+
+div[role="progressbar"]::before {
+    counter-reset: percentage var(--value);
+    content: counter(percentage) '%';
+}
+
+
+/* demo */
+
+
+/* 
+body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+} */
+
+#rating {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
 }
