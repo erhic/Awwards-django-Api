@@ -25,38 +25,7 @@
 
 <body>
     {%include 'includes/navbar.html'%}
-    <div class="navigation ">
-        <div class="logo">
-
-        </div>
-        <div class="navigation-search-container mx-5 my-3 col-md-6 col-lg-6">
-            <!-- <form action="">
-                <div class="bg-light my-2"><i class="fa fa-search"></i>
-                    <input class="search-field" type="text" placeholder="Search"> <a href="#register">Register/Login</a> </form>
-            </div> -->
-            <form class="form-inline">
-                <i class="fa fa-search fs-5"></i>
-                <input class="form-control mr-sm-2 p-4" type="search" placeholder="" aria-label="Search">
-
-            </form>
-            <div class="search-container">
-                <div class="search-container-box">
-                    <div class="search-results">
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div id="register" class="col-md-2 bg-white py-3"><a href="register">Register/Login</a></div>
-        <div id="register" class="col-md-2 bg-secondary py-3"><a href="submit">SUBMIT YOUR SITE!</a></div>
-
-
-    </div>
-    </div>
-    <div class="container mt-3">{%block content%}{%endblock%}{%block info%}
-        <p>this me</p>{%endblock%}</div>
+    <div id="landingpg" class="container-fluid">{% block content %} {% endblock content %}</div>
     <script src="{% static '/js/jquery.js' %}"></script>
     <script src="{% static '/js/script.js' %}"></script>
 
