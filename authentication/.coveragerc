@@ -1,0 +1,7 @@
+[run]
+source=authentication/,awrs/,
+omit=
+      environ
+      */migration/*
+      */tests/*
+      */__init__.py
