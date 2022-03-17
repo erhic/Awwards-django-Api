@@ -1,0 +1,184 @@
+{% extends "base.html"%}{% block content %}
+<section id="home" class="w-100">
+
+
+    <div class=" position-relative">
+        <img src="{{project.image.url}}" class=" w-100" height="615vh" alt="" style="background: rgb(4, 238, 238);
+        background: linear-gradient(0deg, rgb(10, 83, 241) 0%, rgba(97, 12, 84, 0.5) 78%);">
+
+
+
+
+        <div class="position-absolute container-fluid py-3  w-100 overlay d-flex flex-column text-gray">
+            <div class="col d-flex justify-content-between">
+                <p>
+                    {% for k in projects|slice:":1" %} <span class="fw-bold">Site of the day</span>: {{k.date|date}} {% endfor %}
+                </p>
+                <div>
+                    <span class="material-icons img-40 center rounded-circle border border-1 border-white">share</span>
+                </div>
+            </div>
+            <div class="col text-center">
+                <h1 class="title text-info">{{project_home.title|upper}}</h1>
+                <p class="p">
+                    By <a href="#">{{project_home.user|title}}</a> from {{project_home.location|title}}
+                </p>
+
+                <div id="rating" class="rating-group center col-md-10 mx-auto mt-4 d-inline d-block">
+                    <div class="rating d-inline-flex col-md-2 mx-auto">
+                        <div class="d-inline-flex ">
+                            <div class="circle-wrap">
+                                <div class="circle">
+                                    <div class="mask full">
+                                        <div id="maskfull1" class="fill"></div>
+                                    </div>
+                                    <div class="mask half">
+                                        <div id="maskfull1" class="fill"></div>
+                                    </div>
+                                    <div class="inside-circle text-white">7.0 {{rating.design_rate}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Design -->
+                        </div>
+
+                    </div>
+                    <div class="rating d-inline-flex col-md-2">
+                        <div class="d-inline-flex  ">
+                            <div class="circle-wrap">
+                                <div class="circle">
+                                    <div class="mask full">
+                                        <div id="maskfull2" class="fill"></div>
+                                    </div>
+                                    <div class="mask half">
+                                        <div id="maskfull2" class="fill"></div>
+                                    </div>
+                                    <div class="inside-circle"> 7.9 {{rating.usability_rate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Usability -->
+                    </div>
+
+                    <div class="rating d-inline-flex col-md-2">
+                        <div class="d-inline-flex ">
+                            <div class="circle-wrap">
+                                <div class="circle">
+                                    <div class="mask full">
+                                        <div id="maskfull4" class="fill"></div>
+                                    </div>
+                                    <div class="mask half">
+                                        <div id="maskfull4" class="fill"></div>
+                                    </div>
+                                    <div class="inside-circle"> 8.0 {{rating.content_rate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Content -->
+                    </div>
+
+                </div>
+            </div>
+            <div class="col position-relative mb-3 ">
+                <div class="position-absolute bottom-0 ">
+                    <button class="btn btn-outline-info text-white rounded-pill  text-xs center px-3 ">
+                        Visit site
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end banner -->
+
+
+
+
+<!--nominees -->
+
+<section id="projects " class="container-lg py-5 px-lg-5 ">
+    <p><b>Nominees</b> we need your votes</p>
+    <div class="projects row  ">
+        {% for project in projects %}
+        <div class="col-lg-4 col-md-4  col-sm-6 mb-3 ">
+
+            <div class="project-card bg-white rounded-3 h-100">
+
+                <div class="position-relative project-image mt-2 ">
+                    <img src="{{project.image.url}}" style="max-height: 28vh;" alt=" " class=" rounded-top img-fluid image w-100">
+                    <div class="position-absolute top-0 h-100 w-100 overlay flex-column ">
+                        <div class="col "></div>
+                        <div class="col center ">
+                            <button class="btn btn-light rounded-pill text-uppercase text-xs center px-3 ">
+                                Visit site
+                            </button>
+                        </div>
+                        <div class="col d-flex justify-content-end align-items-end pe-2 pb-2 ">
+                            <button class="btn btn-sm text-light rounded-circle center d-flex img-30 ">
+                                <span class="material-icons fs-6 ">share</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details p-3 ">
+                    <p class="text-muted mb-1 text-sm ">
+                        From <span class="fw-bold ">{{project.location|title}}</span> <span class="ps-3" id="carddate"><small >{{project.date|date}}</small></span>
+                    </p>
+
+                    <a href="# " class="text-decoration-none ">
+                        <h6 class="fw-bold ">
+
+                            <p class="text-start "><span class="text-dark ">Project Name:</span> {{' '}}{{project.title}}
+                            </p>
+                        </h6>
+                    </a>
+                    <div class="align-text-bottom d-flex align-items-center ">
+                        <img src="static/image/node.png " height="30 " width="30 " alt=" " class="avatar rounded-circle ">
+                        <div class="ps-3 ">
+                            <span class="text-muted mb-1 text-uppercase text-xs ">{{project.user.first_name}}</span>
+                        </div>
+                    </div>
+
+                    <div id="card-footer align-text-bottom" class="display-on-hover mt-2">
+                        <a href="{% url 'project_info' project.id %}" class="btn btn-outline-info text-secondary "><small>Vote Now</small></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>{%endfor%}
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+<!-- footer -->
+<footer class="border-1 border-top border-default pt-4 pb-2 ">
+    <div class="row container-fluid ">
+        <div class="col d-flex ">
+            <a href="# " class="nav-item text-dark fw-normal pe-3 ">Contact Us</a>
+            <a href="# " class="nav-item text-dark fw-normal pe-3 ">F.A.Q</a>
+            <a href="# " class="nav-item text-dark fw-normal pe-3 ">Cookies Policy</a>
+            <a href="# " class="nav-item text-dark fw-normal pe-3 ">Legal Terms</a>
+        </div>
+
+    </div>
+</footer>
+</div>
+{% endblock %}
+
+<!-- <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+    var popover = new bootstrap.Popover(document.querySelector('.example-popover'), {
+        container: 'body'
+    })
+</script> -->
