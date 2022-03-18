@@ -1,0 +1,89 @@
+{% extends "base.html" %} {% block content %}
+<section class="profile container">
+    <div class=" mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <div style="width: 15rem;" class="card px-4 pt-2">
+
+                    {% if account.account_image %}
+                    <span class="rounded-circle p-2   "><img src="{{account.account_image.url}}" alt="" class="card-img-top rounded-circle bg-secondary  "> </span>{%else%}
+
+                    <i class="bi bi-person-fill"></i>{% endif %}
+                    <div class="card-body text-center">
+                        <h4 class="card-text">
+                            <span class="rounded-pill bg-light text-info p-2">{{ user.first_name|title }} {{ user.last_name|title }}</span>
+                        </h4>
+                        <p class="rounded-pill bg-light p-2">{{ user.username }}</p>
+                        <p>
+
+                            {% if account.contact %}
+                            <small class="rounded-pill bg-light p-2">{{ account.contact }}</small> {% else %}
+                            <span class="badge rounded-pill bg-info text-white">No contact</span> {% endif %}
+                        </p>
+
+
+                    </div>
+                    <!-- <div class="card bg-light px-2"> -->
+
+                    <!-- </div> -->
+                </div>
+                <p class="bg-light">
+                    {% if account.bio %}
+                    <small class="rounded bg-light p-2">{{ account.bio }}</small> {% else %}
+                    <span class="text-danger">No about me</span> {% endif %}
+                </p>
+            </div>
+            <div class="col-md-6">
+                <form action="{% url 'update_profile' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="name">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="name">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="contact">Contact</label>
+                                <input type="text" class="form-control" id="contact" name="contact" value="{{ profile.contact }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ user.email}}">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="bio">Bio</label>
+                        <textarea name="bio" id="bio" cols="27" rows="4" class="form-control">{{ profile.bio }}</textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="profile_pic">Profile Picture</label>
+                        <input type="file" class="form-control" id="profile_pic" name="profile_pic" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-info">Update Account</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+    </div>
+</section>
+{% endblock %}
