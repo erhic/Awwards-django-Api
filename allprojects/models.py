@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
-    descr = models.TextField()
+    description = models.TextField()
     image = CloudinaryField("image")
     url = models.URLField(blank=True)
     location = models.CharField(max_length=100, )
@@ -65,7 +65,7 @@ class Account(models.Model):
 
     @classmethod
     def filter_by_id(cls, id):
-        profile = Profile.objects.filter(user=id).first()
+        profile = Account.objects.filter(user=id).first()
         return profile
 
     def __str__(self):
