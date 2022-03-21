@@ -1,0 +1,4 @@
+{% autoescape off %} Hello {{user.first_name}}
+
+<h4>Instructions</h4>
+Please click the link below to activate your account: http://{{domain}}{% url 'activation' uib64=uid token=token%} {% endautoescape %}

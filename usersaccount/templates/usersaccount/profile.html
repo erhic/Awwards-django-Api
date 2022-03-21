@@ -1,0 +1,8 @@
+{% extends 'usersaccount/base.html'%}{%load crispy_forms_tags %} {% block content %}
+<div class="row mt-4 py-5">
+    <div class="col-md-4 mx-auto">
+        <div class="card form-card" style="width: 22rem;">
+            <h1>{{user.username}}</h1>
+        </div>
+    </div>
+    {% endblock %}

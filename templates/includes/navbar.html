@@ -1,15 +1,16 @@
+{% load static %}
+
+
+
 <div class="navigation ">
     <div class="logo">
 
     </div>
-    <div class="navigation-search-container my-2 col-md-7 col-lg-8">
-        <!-- <form action="">
-            <div class="bg-light my-2"><i class="fa fa-search"></i>
-                <input class="search-field" type="text" placeholder="Search"> <a href="#register">Register/Login</a> </form>
-        </div> -->
-        <form class="form-inline">
+    <div class="navigation-search-container mx-5 my-3 col-md-6 col-lg-6">
+        <form class="form-inline" action="{%url 'search_project' %}" method="POST">
+            {%csrf_token%}
             <i class="fa fa-search fs-5"></i>
-            <input class="form-control mr-sm-2 p-4" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2 p-4 fs-3 fw-bold" type="search" placeholder="awwwards." aria-label="Search">
 
         </form>
         <div class="search-container">
@@ -22,13 +23,16 @@
 
     </div>
 
-    <div id="register" class="col-md-2 bg-secondary py-3">Register/Login</div>
-
+    <div id="register" class="col-md-2 bg-white py-3">
+        <a class="text-dark fw-bolder text text-decoration-none " type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">REGISTER/LOGIN</a>
+    </div>
+    <div id="register" class="col-md-2 bg-dark py-3">
+        <li><a class="text-white text text-decoration-none px-3" href="{%url 'upload_project' %}">SUBMIT YOUR SITE!</a></li>
+    </div>
+    <!--   -->
 
 </div>
 </div>
-
-
 
 
 
@@ -57,11 +61,11 @@
 
 
                 </div>
-                <li><a href="#register">Register/Login</a></li>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#winners">Winners</a></li>
+                <li><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Register/Login</a></li>
+                <li><a href="{%url 'home'%}">Home</a></li>
+                <li><a href="{%url 'account'%}">Profile</a></li>
+                <li><a href="{%url 'upload_project' %}">Upload Project</a></li>
                 <li><a href="#nominees">Nominees</a></li>
-                <li><a href="#collection">Collection</a></li>
                 <li><a href="#academy">Academy</a></li>
                 <li><a href="#Professional directory">Professional directory</a></li>
                 <li><a href="#blog">Blog</a></li>
@@ -94,3 +98,84 @@
 
 
 </div>
+
+
+
+
+
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  ">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"><span>Sign in to continue</span> <span class="px-4">Not a member yet?</span> <span class="text-end px-3 fw-bold">Register now</span>
+                </small>
+                </p>
+
+                <!-- ....................................... -->
+
+                <!-- <form action="" class="mb-3" method="POST">
+
+
+                    {% csrf_token %} {% csrf_token %}
+                    <div class="form-group">
+
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Username</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Password</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Confirm Password</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        </div>
+
+
+
+
+
+
+                        <div class="form-group d-grid mt-3 px-4 text-center">
+                            <button type="submit" class="btn btn-info text-white btn-block mb-3 fw-bold">Login</button>
+                        </div>
+
+
+                </form> -->
+
+                <!-- ......................................................... -->
+                <p class="text-center text-info py-2"><small>Forgot your password</small></p>
+                <p class="text-start text-dark fw-bold h5  py-2"><small>Or sign in with</small></p>
+                <p class=" text-center py-2"><button class="btn-light py-2 px-4 fw-bold mx-2">Google</button>
+                    <button class="btn-info px-4 py-2  mx-2 fw-bold text-white">Twitter</button>
+                    <button class="btn-primary px-4 py-2  mx-2 fw-bold text-white">Facebook</button></p>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->

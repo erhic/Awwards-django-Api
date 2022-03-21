@@ -11,6 +11,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import django_heroku
+from django.conf import settings
+from django.conf.urls.static import static
+from pathlib import Path
+import dj_database_url
+from decouple import config,Csv
+import os
+
+
 # from django.conf.urls.static import static
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,6 +30,45 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+SECRET_KEY=''
+
+cloudinary.config( 
+  cloud_name = "dayqmj50s", 
+  api_key = "322347289834666", 
+  api_secret = "y37FBwHvxjrAWClpa3LEYUNQsYw",
+  secure=True
+)
+
+# SECURITY WARNING: don't run with debug turned on in production!
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', True)
+# development
+if config('MODE')=="dev":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': os.environ.get('DB_NAME'),
+           'USER': os.environ.get('DB_USER'),
+           'PASSWORD': os.environ.get('DB_PASSWORD'),
+           
+       }
+       
+   }
+# production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-l@o#@e5f@af_3)%v&8z7#h)bk6sqe#)cf#ftnu0p7%-ibaj46+'
@@ -25,8 +76,12 @@ SECRET_KEY = 'django-insecure-l@o#@e5f@af_3)%v&8z7#h)bk6sqe#)cf#ftnu0p7%-ibaj46+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
+# AUTH_USER_MODEL='authentication.User'
+
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
+
+REGISTRATION_OPEN=True
 
 # Application definition
 
@@ -37,13 +92,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'authentication',
-    'projects',
-    'rest_framework'
+     'corsheaders',
+    'allprojects',
+    # 'authentication',
+    # 'projects',
+    'rest_framework',
+    # 'usersaccount',
+   'authentic',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -77,13 +137,15 @@ WSGI_APPLICATION = 'awards.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'awards',
+        'USER': 'moringa',
+        'PASSWORD':'1234567'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -122,15 +184,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    os.path.join(BASE_DIR, "static"),
 ]
-
-# MEDIA_URL = '/image/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'image')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
+
+CRISPY_TEMPLATE_PACK='bootstrap4'
+
+LOGIN_REDIRECT_URL='home'
+LOGIN_URL='login'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

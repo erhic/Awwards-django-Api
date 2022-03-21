@@ -3,8 +3,8 @@
 
 
     <div class=" position-relative">
-        <img src="{{project.image.url}}" class=" w-100" height="615vh" alt="" style="background: rgb(4, 238, 238);
-        background: linear-gradient(0deg, rgb(10, 83, 241) 0%, rgba(97, 12, 84, 0.5) 78%);">
+        <img src="" class=" w-100" height="615vh" alt="" style="background: rgb(4, 238, 238);
+        background: linear-gradient(0deg, rgb(10, 83, 241) 0%, rgba(97, 12, 84, 0.5) 78%); background-image:url()">
 
 
 
@@ -18,66 +18,68 @@
                     <span class="material-icons img-40 center rounded-circle border border-1 border-white">share</span>
                 </div>
             </div>
-            <div class="col text-center">
-                <h1 class="title text-info">{{project_home.title|upper}}</h1>
-                <p class="p">
-                    By <a href="#">{{project_home.user|title}}</a> from {{project_home.location|title}}
-                </p>
+            <div class="col text-center" style="background-image: url();">
+                <a href="#">
+                    <h1 class="title text-info">{{latest_upload.title|upper}}</h1>
+                    <p class="p">
+                        By <a href="#">{{latest_upload.user|title}}</a> from {{latest_upload.location|title}}
+                    </p>
 
-                <div id="rating" class="rating-group center col-md-10 mx-auto mt-4 d-inline d-block">
-                    <div class="rating d-inline-flex col-md-2 mx-auto">
-                        <div class="d-inline-flex ">
-                            <div class="circle-wrap">
-                                <div class="circle">
-                                    <div class="mask full">
-                                        <div id="maskfull1" class="fill"></div>
+                    <div id="rating" class="rating-group center col-md-10 mx-auto mt-4 d-inline d-block">
+                        <div class="rating d-inline-flex col-md-2 mx-auto">
+                            <div class="d-inline-flex ">
+                                <div class="circle-wrap">
+                                    <div class="circle">
+                                        <div class="mask full">
+                                            <div id="maskfull1" class="fill"></div>
+                                        </div>
+                                        <div class="mask half">
+                                            <div id="maskfull1" class="fill"></div>
+                                        </div>
+                                        <div class="inside-circle text-white">7.0 {{rating.design_rate}}</small>
+                                        </div>
                                     </div>
-                                    <div class="mask half">
-                                        <div id="maskfull1" class="fill"></div>
-                                    </div>
-                                    <div class="inside-circle text-white">7.0 {{rating.design_rate}}</small>
+                                </div>
+                                <!-- Design -->
+                            </div>
+
+                        </div>
+                        <div class="rating d-inline-flex col-md-2">
+                            <div class="d-inline-flex  ">
+                                <div class="circle-wrap">
+                                    <div class="circle">
+                                        <div class="mask full">
+                                            <div id="maskfull2" class="fill"></div>
+                                        </div>
+                                        <div class="mask half">
+                                            <div id="maskfull2" class="fill"></div>
+                                        </div>
+                                        <div class="inside-circle"> 7.9 {{rating.usability_rate}}</div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Design -->
+                            <!-- Usability -->
                         </div>
 
-                    </div>
-                    <div class="rating d-inline-flex col-md-2">
-                        <div class="d-inline-flex  ">
-                            <div class="circle-wrap">
-                                <div class="circle">
-                                    <div class="mask full">
-                                        <div id="maskfull2" class="fill"></div>
+                        <div class="rating d-inline-flex col-md-2">
+                            <div class="d-inline-flex ">
+                                <div class="circle-wrap">
+                                    <div class="circle">
+                                        <div class="mask full">
+                                            <div id="maskfull4" class="fill"></div>
+                                        </div>
+                                        <div class="mask half">
+                                            <div id="maskfull4" class="fill"></div>
+                                        </div>
+                                        <div class="inside-circle"> 8.0 {{rating.content_rate}}</div>
                                     </div>
-                                    <div class="mask half">
-                                        <div id="maskfull2" class="fill"></div>
-                                    </div>
-                                    <div class="inside-circle"> 7.9 {{rating.usability_rate}}</div>
                                 </div>
                             </div>
+                            <!-- Content -->
                         </div>
-                        <!-- Usability -->
-                    </div>
 
-                    <div class="rating d-inline-flex col-md-2">
-                        <div class="d-inline-flex ">
-                            <div class="circle-wrap">
-                                <div class="circle">
-                                    <div class="mask full">
-                                        <div id="maskfull4" class="fill"></div>
-                                    </div>
-                                    <div class="mask half">
-                                        <div id="maskfull4" class="fill"></div>
-                                    </div>
-                                    <div class="inside-circle"> 8.0 {{rating.content_rate}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Content -->
                     </div>
-
-                </div>
+                </a>
             </div>
             <div class="col position-relative mb-3 ">
                 <div class="position-absolute bottom-0 ">
@@ -143,6 +145,7 @@
                     <div id="card-footer align-text-bottom" class="display-on-hover mt-2">
                         <a href="{% url 'project_info' project.id %}" class="btn btn-outline-info text-secondary "><small>Vote Now</small></a>
                     </div>
+
 
                 </div>
             </div>

@@ -1,3 +1,4 @@
+from email import message
 from django.shortcuts import render
 
 # Create your views here.
@@ -18,16 +19,15 @@ import cloudinary.api
 def home(request): 
     project = Project.objects.all()
     latest_project = project[0]
-    rate = ProjectRate.objects.filter(project_id=latest_project.id).first()
   
     return render(
-        request, "index.html", {"projects": project, "project_home": latest_project, "rating": rate}
+        request, "landing.html", {"projects": project, "latest_upload": latest_project}
     )
 
 def project_info(request, project_id):
     project = Project.objects.get(id=project_id)
-    rate =  ProjectRate.objects.filter(project=project)
-    return render(request, "project.html", {"project": project, "rating": rate})
+    # rate =  ProjectRate.objects.filter(project=project)
+    return render(request, "projectupload.html", {"project": project, })
 
 
 @login_required(login_url="/accounts/login/")
@@ -82,112 +82,72 @@ def update_profile(request):
 
         user.save()
 
-        return redirect("/profile", {"success": "Profile Updated Successfully"})
-    else:
-        return render(request, "profile.html", {"danger": "Profile Update Failed"})
+    return redirect( 'home')
 
 
-# save project
-@login_required(login_url="/accounts/login/")
-def save_project(request):
+@login_required()
+def upload_project(request):
+    
     if request.method == "POST":
-
-        current_user = request.user
-
+       
         title = request.POST["title"]
         location = request.POST["location"]
-        descr = request.POST["descr"]
+        description = request.POST["description"]
+        
         url = request.POST["url"]
+        
         image = request.FILES["image"]
-        # crop image to square
-        image = cloudinary.uploader.upload(image, crop="limit", width=500, height=500)
-        # image = cloudinary.uploader.upload(image)
+        image = cloudinary.uploader.upload(image, crop="limit", width=600, height=600)
         image_url = image["url"]
-
+        
+        current_user = request.user
+        
         project = Project(
             user_id=current_user.id,
             title=title,
             location=location,
-            descr=descr,
+            description=description,
             url=url,
             image=image_url,
         )
         project.save_project()
+        # message='Project uploaded successfully'
+    
+    return render(request, "projectupload.html")
 
-        return redirect("/profile", {"success": "Project Saved Successfully"})
-    else:
-        return render(request, "profile.html", {"danger": "Project Save Failed"})
 
 
-# delete project
-@login_required(login_url="/accounts/login/")
+@login_required()
 def delete_project(request, id):
     project = Project.objects.get(id=id)
     project.delete_project()
-    return redirect("/profile", {"success": "Project Deleted Successfully"})
+    return redirect("/account")
 
 
-# rate_project
-@login_required(login_url="/accounts/login/")
-def rate_project(request, id):
-    if request.method == "POST":
 
-        project = Project.objects.get(id=id)
-        current_user = request.user
-
-        design_rate=request.POST["design"]
-        usability_rate=request.POST["usability"]
-        content_rate=request.POST["content"]
-
-        ProjectRate.objects.create(
-            project=project,
-            user=current_user,
-            design_rate=design_rate,
-            usability_rate=usability_rate,
-            content_rate=content_rate,
-            avg_rate=round((float(design_rate)+float(usability_rate)+float(content_rate))/3,2),
-        )
-
-        # get the avarage rate of the project for the three rates
-        avg_rating= (int(design_rate)+int(usability_rate)+int(content_rate))/3
-
-        # update the project with the new rate
-        project.rate=avg_rating
-        project.update_project()
-
-        return render(request, "project.html", {"success": "Project Rated Successfully", "project": project, "rating": ProjectRate.objects.filter(project=project)})
-    else:
-        project = Project.objects.get(id=id)
-        return render(request, "project.html", {"danger": "Project Rating Failed", "project": project})
-
-
-# search projects
 def search_project(request):
     if 'search_term' in request.GET and request.GET["search_term"]:
         search_term = request.GET.get("search_term")
         searched_projects = Project.objects.filter(title__icontains=search_term)
-        message = f"Search For: {search_term}"
+    
 
-        return render(request, "search.html", {"message": message, "projects": searched_projects})
+        return render(request, "search.html", { "projects": searched_projects})
     else:
         message = "You haven't searched for any term"
-        return render(request, "search.html", {"message": message})
+        return render(request, "search.html",{'message':message})
 
 
 
-# rest api ====================================
-class ProfileList(APIView): # get all profiles
+
+class AccountList(APIView): 
     permission_classes = (IsAdminOrReadOnly,)
     def get(self, request, format=None):
         all_profiles = Account.objects.all()
         serializers = AccountSerializer(all_profiles, many=True)
         return Response(serializers.data)
 
-    # def post(self, request, format=None):
-    #     serializers = MerchSerializer(data=request.data)
 
-
-class ProjectList(APIView): # get all projects
+class ProjectList(APIView): 
     permission_classes = (IsAdminOrReadOnly,)
     def get(self, request, format=None):
         all_projects = Project.objects.all()

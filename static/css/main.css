@@ -1,7 +1,20 @@
 body {
     position: relative;
     overflow-x: hidden;
-    background-color: #ffffff;
+}
+
+#maintitle {
+    color: rgb(228, 176, 176);
+    background-image: linear-gradient(to bottom right, rgb(157, 157, 204), rgb(163, 163, 140));
+}
+
+#carddate {
+    color: red!important;
+}
+
+#footercard {
+    padding-bottom: 0%;
+    margin-bottom: 0%;
 }
 
 body,
