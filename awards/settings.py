@@ -21,17 +21,17 @@ from pathlib import Path
 import dj_database_url
 from decouple import config,Csv
 import os
+from django.urls import reverse_lazy
 
-
-# from django.conf.urls.static import static
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-SECRET_KEY=''
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = ''
 cloudinary.config( 
   cloud_name = "dayqmj50s", 
   api_key = "322347289834666", 
@@ -40,6 +40,7 @@ cloudinary.config(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG', True)
@@ -66,20 +67,7 @@ else:
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-# ALLOWED_HOSTS = [config('ALLOWED_HOSTS', cast=Csv())]
-
-ALLOWED_HOSTS = ['5432']
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-
-# AUTH_USER_MODEL='authentication.User'
-
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # Application definition
 
