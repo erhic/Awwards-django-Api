@@ -68,7 +68,7 @@ DATABASES['default'].update(db_from_env)
 
 # ALLOWED_HOSTS = [config('ALLOWED_HOSTS', cast=Csv())]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['5432']
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
