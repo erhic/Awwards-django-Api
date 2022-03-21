@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path,include,reverse
 from django.conf import settings
 from django.conf.urls.static import static
-from usersaccount import views as user_views
+# from usersaccount import views as user_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
