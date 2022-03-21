@@ -71,7 +71,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l@o#@e5f@af_3)%v&8z7#h)bk6sqe#)cf#ftnu0p7%-ibaj46+'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,9 +79,7 @@ DEBUG = True
 
 # AUTH_USER_MODEL='authentication.User'
 
-ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 
-REGISTRATION_OPEN=True
 
 # Application definition
 
@@ -98,7 +96,7 @@ INSTALLED_APPS = [
     # 'projects',
     'rest_framework',
     # 'usersaccount',
-   'authentic',
+    'authentic',
     'crispy_forms',
 ]
 
