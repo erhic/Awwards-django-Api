@@ -93,7 +93,7 @@ INSTALLED_APPS = [
     #  'corsheaders',
     'allprojects',
     # 'authentication',
-    # 'projects',
+  
     'rest_framework',
     # 'usersaccount',
     'authentic',

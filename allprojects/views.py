@@ -18,15 +18,15 @@ import cloudinary.api
 
 def home(request): 
     project = Project.objects.all()
-    latest_project = project[0]
+    # latest_project = project[0]
   
     return render(
-        request, "landing.html", {"projects": project, "latest_upload": latest_project}
+        request, "landing.html", {"projects": project}
     )
 
 def project_info(request, project_id):
     project = Project.objects.get(id=project_id)
-    # rate =  ProjectRate.objects.filter(project=project)
+   
     return render(request, "projectupload.html", {"project": project, })
 
 
