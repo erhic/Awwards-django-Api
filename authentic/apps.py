@@ -1,9 +1,10 @@
-from django.apps import AppConfig
+
+# from django.apps import AppConfig
 
 
-class AuthenticConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'authentic'
+# class AuthenticConfig(AppConfig):
+#     default_auto_field = 'django.db.models.BigAutoField'
+#     name = 'authentic'
     
-    def ready(self):
-        import authentic.signals
+#     def ready(self):
+#         import authentic.signals

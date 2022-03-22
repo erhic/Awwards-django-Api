@@ -5,13 +5,42 @@ import datetime as dt
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
+from allprojects.models import User
+
+from django.db import models
+
+# .............
+
+from  PIL import Image
+
+
+
+class Profile(models.Model):
+    user= models.OneToOneField(User, on_delete=models.CASCADE)
+    image= models.ImageField(default='default.png',)
+    contact=models.CharField(blank=True,max_length=50)
+    
+    def __str__(self):
+        return f'{self.user.username}Profile'
+    
+    
+    def save(self,**kwarg):
+        super().save()
+        #  the below variable will store  every instance of the image before risizing
+        img= Image.open(self.image.path)
+        
+        if img.height>300 or img.width>300:
+            output_size=(300,300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
+        
 
 
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=250)
     description = models.TextField()
-    image = CloudinaryField("image")
+    image = CloudinaryField("image",default='default.png')
     url = models.URLField(blank=True)
     location = models.CharField(max_length=100, )
     date = models.DateTimeField(auto_now_add=True, null=True)
@@ -53,7 +82,7 @@ class Project(models.Model):
 
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    account_image = CloudinaryField("image")
+    account_image = CloudinaryField("image",default='default.png')
     bio = models.TextField(max_length=250, blank=True, null=True)
     contact = models.CharField(max_length=250, blank=True, null=True)
 
