@@ -17,7 +17,7 @@ from  PIL import Image
 
 class Profile(models.Model):
     user= models.OneToOneField(User, on_delete=models.CASCADE)
-    image= models.ImageField(default='default.png',)
+    image= CloudinaryField("image",default='default.png',)
     contact=models.CharField(blank=True,max_length=50)
     
     def __str__(self):
